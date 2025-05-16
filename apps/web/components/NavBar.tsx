@@ -7,6 +7,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import UtilityCard from "./UtilityCard";
+import GoogleSigninButton from "./buttons/GoogleSigninButton";
 
 
 
@@ -34,9 +35,12 @@ export default function NavBar() {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
 
-
-
-
+    async function googleSignin(){
+        signIn("google",{
+            redirect:true,
+            callbackUrl:"/"
+        })
+    }
 
 
     return (
@@ -66,7 +70,7 @@ export default function NavBar() {
                 </div>
 
                 {
-                    isLoginModalOpen && (<UtilityCard className=" flex flex-col relative w-3/12 py-4 px-4 gap-y-4">
+                    isLoginModalOpen && (<UtilityCard className="flex flex-col relative w-3/12 py-4 px-4 gap-y-4 shadow-md rounded-lg bg-white">
                         <div className="font-bold">
                             Sign in to Storify ?
                         </div>
@@ -74,6 +78,13 @@ export default function NavBar() {
                         <p className="text-xs">
                             To access all the exciting features of Banter and stay updated with the latest conversations. Log in now to connect with others and explore what's new!
                         </p>
+                        <button
+                            onClick={() => setIsLoginModalOpen(false)}
+                            className="absolute top-2 right-2 text-gray-500 hover:text-red-600 font-bold text-lg"
+                        >
+                            ×
+                        </button>
+                        <GoogleSigninButton onClick={googleSignin}>Sign In using Google</GoogleSigninButton>
                     </UtilityCard>)
                 }
 

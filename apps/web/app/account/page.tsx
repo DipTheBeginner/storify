@@ -1,11 +1,13 @@
-import { authOption } from "app/api/auth/[...nextauth]/options"
-import { getServerSession } from "next-auth"
+"use client"
+
+import { useSession } from "next-auth/react";
 
 
 
 export default async function AccountPage(){
 
-    const session=await getServerSession(authOption);
+    const {data:session,status}=useSession();
+
 
     return (
         <div>
