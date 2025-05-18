@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import Button from "./Button";
+import Button from "./buttons/Button";
 import NavBarComponents from "./NavBarComponents";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

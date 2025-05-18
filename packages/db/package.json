@@ -1,11 +1,19 @@
-{
-  "name": "@repo/db",
-  "version": "1.0.0",
-  "exports": {
-    "./client": "./index.ts"
-  },
-  "dependencies": {
-    "@prisma/client": "^6.7.0",
-    "prisma": "^6.7.0"
+  {
+    "name": "@repo/db",
+    "version": "1.0.0",
+    "scripts":{
+      "seed": "ts-node prisma/seed.ts",
+      "postinstall": "prisma generate"
+    },
+    "exports": {
+      "./client": "./index.ts"
+      
+    },
+    "dependencies": {
+      "@prisma/client": "^6.7.0",
+      "prisma": "^6.7.0"
+    },
+    "prisma": {
+      "seed": "ts-node prisma/seed.ts"
+    }
   }
-}
