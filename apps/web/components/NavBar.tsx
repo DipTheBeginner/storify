@@ -5,7 +5,7 @@ import Button from "./buttons/Button";
 import NavBarComponents from "./NavBarComponents";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UtilityCard from "./UtilityCard";
 import GoogleSigninButton from "./buttons/GoogleSigninButton";
 
@@ -14,8 +14,15 @@ import GoogleSigninButton from "./buttons/GoogleSigninButton";
 export default function NavBar() {
 
     const { data: session, status } = useSession();
-
     const router = useRouter();
+
+    useEffect(() => {
+        if (session) {
+            router.push("/home")
+        }
+
+    }, [session])
+
 
     function handleAccountButtonClick() {
         router.push("/account")
@@ -35,12 +42,16 @@ export default function NavBar() {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
 
-    async function googleSignin(){
-        signIn("google",{
-            redirect:true,
-            callbackUrl:"/"
+    async function googleSignin() {
+        signIn("google", {
+            redirect: true,
+            callbackUrl: "/"
         })
+
     }
+
+
+
 
 
     return (
@@ -54,7 +65,7 @@ export default function NavBar() {
 
             <div className="flex space-x-8 items-center">
 
-                <NavBarComponents href="/">Home</NavBarComponents>
+                <NavBarComponents href="/home">Home</NavBarComponents>
 
 
                 <div className="flex flex-col items-end space-y-2">
@@ -88,10 +99,13 @@ export default function NavBar() {
                     </UtilityCard>)
                 }
 
+                {
+                    session && (<Button clickableFunction={signOutUser}>Sign out</Button>)
+                }
 
 
 
-                <Button clickableFunction={signOutUser}>Sign out</Button>
+
 
             </div>
 

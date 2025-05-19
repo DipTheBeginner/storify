@@ -1,6 +1,7 @@
 "use client"
 
 import Button from "components/buttons/Button";
+import NavBar from "components/NavBar";
 import Signin from "components/Signin";
 import { signIn } from "next-auth/react";
 
@@ -18,6 +19,7 @@ export default function HomePage() {
 
   return (
     <div>
+      <NavBar/>
       <main className=" min-h-screen bg-cover bg-center bg-no-repeat flex justify-center bg-neutral-900 overflow-hidden"
       >
 

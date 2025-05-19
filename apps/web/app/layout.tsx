@@ -18,7 +18,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body>
                 <RecoilRoot>
                     <SessionProvider>
-                        <NavBar />
                         {children}
                     </SessionProvider>
                 </RecoilRoot>

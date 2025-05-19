@@ -42,7 +42,7 @@ export const authOption: AuthOptions = {
                             data: {
                                 name: user.name!,
                                 image: user.image,
-                                provider: account.provider,
+                                provider: account.provider!,
                                 oauth_id: account.providerAccountId!,
                             },
                         });

@@ -5,7 +5,7 @@ interface FollowStatsProps{
     onClick:()=>void,
     children:React.ReactNode,
     count:number
-    className:React.ReactNode
+    className:string
 
 
     
