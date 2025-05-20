@@ -26,6 +26,8 @@ model User {
   followers Follow[] @relation("followers")
   following Follow[] @relation("following")
 
+  story Story[]
+
   // Optional: Add other related data like posts, etc.
   // posts      Post[]
 }
@@ -48,3 +50,26 @@ model Follow {
   @@index([followerId])
   @@index([followingId])
 }
+
+model Story{
+  id String  @id @default(cuid())
+  title String 
+  content String
+  imageUrl String?
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  isUpdated Boolean
+  tag tags[]    
+
+}
+
+model tags{
+  id String @id @default(cuid())
+  tagName String
+  stories  Story[]
+}
+
+
+
