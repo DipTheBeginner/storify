@@ -62,6 +62,7 @@ export const authOption: AuthOptions = {
                         name: myUser.name,
                         email: myUser.email,
                         id: myUser.id,
+                        image:myUser.image,
                     };
 
                     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET || "default_secret", {
