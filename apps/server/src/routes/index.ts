@@ -1,5 +1,6 @@
 import { Router } from "express";
 import authMiddleware from "../middleware/authMiddleware";
+import storyController from "../controllers/storyController";
 
 
 
@@ -7,7 +8,7 @@ import authMiddleware from "../middleware/authMiddleware";
 const router: Router = Router();
 
 
-router.post("/story",authMiddleware)
+router.post("/story",authMiddleware,storyController);
 
 
 export default router;
