@@ -1,9 +1,14 @@
 "use client"
 
-import HomeNavBar from "components/navbars/HomeNavBar";
+import HomeNavBar from "src/components/navbars/HomeNavBar"
+
+
 
 
 export default function(){
+
+
+
     return(
         <>
 

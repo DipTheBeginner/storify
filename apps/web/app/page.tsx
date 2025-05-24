@@ -1,9 +1,9 @@
 "use client"
 
-import Button from "components/buttons/Button";
-import NavBar from "components/NavBar";
-import Signin from "components/Signin";
+
 import { signIn } from "next-auth/react";
+import Button from "src/components/buttons/Button";
+import NavBar from "src/components/NavBar";
 
 
 
@@ -33,9 +33,6 @@ export default function HomePage() {
           </p>
 
           <Button clickableFunction={handleSignin}>Get Started</Button>
-
-
-
         </section>
 
       </main>

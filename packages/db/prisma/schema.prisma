@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        Int   @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
   // username  String   @uniqu
@@ -19,8 +19,8 @@ model User {
   image     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  provider String?
-  oauth_id String?
+  provider  String?
+  oauth_id  String?
 
   // Self-relation for followers/following
   followers Follow[] @relation("followers")
@@ -38,11 +38,11 @@ model Follow {
 
   // The user who is following
   followerId Int
-  follower   User   @relation("following", fields: [followerId], references: [id], onDelete: Cascade)
+  follower   User @relation("following", fields: [followerId], references: [id], onDelete: Cascade)
 
   // The user who is being followed
   followingId Int
-  following   User   @relation("followers", fields: [followingId], references: [id], onDelete: Cascade)
+  following   User @relation("followers", fields: [followingId], references: [id], onDelete: Cascade)
 
   // Make sure a user can't follow another user multiple times
   @@unique([followerId, followingId])
@@ -51,25 +51,21 @@ model Follow {
   @@index([followingId])
 }
 
-model Story{
-  id String  @id @default(cuid())
-  title String 
-  content String
-  imageUrl String?
-  authorId Int
-  author   User @relation(fields: [authorId], references: [id])
+model Story {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  imageUrl  String?
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  updateAt  DateTime @updatedAt
   isUpdated Boolean
-  tag tags[]    
-
+  tag       tags[]
 }
 
-model tags{
-  id String @id @default(cuid())
+model tags {
+  id      String  @id @default(cuid())
   tagName String
-  stories  Story[]
+  stories Story[]
 }
-
-
-

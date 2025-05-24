@@ -1,8 +1,8 @@
 "use client"
 
-import Button from "components/buttons/Button";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Button from "../buttons/Button";
 
 
 

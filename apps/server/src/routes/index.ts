@@ -8,7 +8,7 @@ import storyController from "../controllers/storyController";
 const router: Router = Router();
 
 
-router.post("/story",authMiddleware,storyController);
+router.post("/story",authMiddleware,storyController)
 
 
 export default router;
