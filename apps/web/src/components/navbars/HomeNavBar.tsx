@@ -5,10 +5,26 @@ import Image from "next/image";
 import Button from "../buttons/Button";
 
 
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+
 
 
 
 export default function () {
+
+    const useStore = create(
+        persist(
+          (set) => ({
+            darkMode: false,
+            toggle: () => set((s) => ({ darkMode: !s.darkMode })),
+          }),
+          {
+            name: 'theme-storage', // key in localStorage
+          }
+        )
+      );
 
     const { data: session } = useSession();
     console.log("Session is ", session);
