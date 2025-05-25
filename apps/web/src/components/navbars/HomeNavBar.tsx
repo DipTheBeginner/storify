@@ -3,10 +3,8 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Button from "../buttons/Button";
+import useCounterStore from "src/zustand/bear";
 
-
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 
 
@@ -14,17 +12,12 @@ import { persist } from 'zustand/middleware';
 
 export default function () {
 
-    const useStore = create(
-        persist(
-          (set) => ({
-            darkMode: false,
-            toggle: () => set((s) => ({ darkMode: !s.darkMode })),
-          }),
-          {
-            name: 'theme-storage', // key in localStorage
-          }
-        )
-      );
+    const {count,increment,decrement}=useCounterStore();
+
+    console.log("count is ",count);
+    console.log("increment is",increment);
+    console.log("decrement is ",decrement);
+
 
     const { data: session } = useSession();
     console.log("Session is ", session);

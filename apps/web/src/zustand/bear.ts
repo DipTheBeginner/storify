@@ -1,18 +1,16 @@
-// Counter.tsx
-'use client'; // if you're using Next.js app router
+// store.ts
+import { create } from 'zustand';
 
-import useCounterStore from './store';
-
-const Counter = () => {
-  const { count, increment, decrement } = useCounterStore();
-
-  return (
-    <div className="p-4">
-      <h1>Count: {count}</h1>
-      <button onClick={increment} className="mr-2">+</button>
-      <button onClick={decrement}>-</button>
-    </div>
-  );
+type State = {
+  count: number;
+  increment: () => void;
+  decrement: () => void;
 };
 
-export default Counter;
+const useCounterStore = create<State>((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 })),
+}));
+
+export default useCounterStore;
