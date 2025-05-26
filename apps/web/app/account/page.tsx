@@ -1,8 +1,8 @@
 "use client"
 
-import FollowStats from "components/FollowStats";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import FollowStats from "src/components/FollowStats";
 
 export default function AccountPage() {
   const { data: session, status } = useSession();

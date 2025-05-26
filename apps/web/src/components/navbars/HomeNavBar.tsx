@@ -3,7 +3,6 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Button from "../buttons/Button";
-import useCounterStore from "src/zustand/bear";
 
 
 
@@ -12,15 +11,10 @@ import useCounterStore from "src/zustand/bear";
 
 export default function () {
 
-    const {count,increment,decrement}=useCounterStore();
-
-    console.log("count is ",count);
-    console.log("increment is",increment);
-    console.log("decrement is ",decrement);
-
-
+    
     const { data: session } = useSession();
-    console.log("Session is ", session);
+    console.log("Session is ", session?.user.token);
+
     return (
         <div className="bg-neutral-900 w-full h-18 flex flex-row items-center justify-between px-8 py-2">
 

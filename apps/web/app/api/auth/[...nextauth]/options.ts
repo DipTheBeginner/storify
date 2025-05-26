@@ -70,6 +70,7 @@ export const authOption: AuthOptions = {
                     });
                     user.id = myUser?.id?.toString();
                     user.token = token;
+                    console.log('USer is ',user);
                     return true;
                 }
 
