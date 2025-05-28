@@ -4,6 +4,17 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import FollowStats from "src/components/FollowStats";
 
+
+function toPascalCase(name: string) {
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
+
 export default function AccountPage() {
   const { data: session, status } = useSession();
 
@@ -17,20 +28,34 @@ export default function AccountPage() {
 
   return (
 
-    <div className="flex flex-col bg-neutral-400 p-4 items-center">
-      <div className="flex items-center gap-6 justify-between">
-        {session.user.image && (
-          <Image
-            src={session.user.image}
-            alt="User profile"
-            width={120}
-            height={120}
-            className="rounded-full border-4 border-yellow-300 object-cover"
-          />
-        )}
+    <div className="bg-gray-200 min-h-screen relative flex flex-col items-center">
 
-        <span className="text-2xl font-bold text-neutral-900">
-          {session.user.name}
+      <div className="absolute top-0 left-0 w-full h-32 bg-white rounded-b-[80%]" />
+
+      <div className="mt-40 w-full flex items-center gap-6 bg-amber-800 h-50">
+        <div className="flex flex-row items-center gap-10 bg-yellow-400 ml-80">
+
+          <div className="bg-green-700">
+
+
+            {session.user.image && (
+              <Image
+                src={session.user.image}
+                alt="User profile"
+                width={200}
+                height={200}
+                className="rounded-full border border-gray-300 object-cover"
+              />
+            )}
+          </div>
+          <h1 className="text-2xl font-bold text-gray-800 bg-red-400 -mt-20 ">
+            {toPascalCase(session.user.name || "")}
+          </h1>
+        </div>
+      </div>
+      <div className="font-semibold text-2xl bg-amber-500 w-full flex">
+        <span className="bg-red-500">
+          My Posts
         </span>
       </div>
     </div>
