@@ -1,7 +1,9 @@
 "use client"
 
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useEffect } from "react";
 import FollowStats from "src/components/FollowStats";
 
 
@@ -15,8 +17,32 @@ function toPascalCase(name: string) {
 
 
 
+
+
 export default function AccountPage() {
   const { data: session, status } = useSession();
+
+  const
+
+  const token=session?.user.token
+
+  async function fetchMyStories(){
+    if(!session?.user.id){
+      return;
+    }
+    try{
+      const response=await axios.get("http://localhost:8080/api/",{
+        headers:{
+          'Authorization':`Bearer ${token}`
+        }
+      })
+    }
+  }
+
+
+  useEffect(()=>{
+
+  })
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -54,7 +80,7 @@ export default function AccountPage() {
         </div>
       </div>
       <div className="font-semibold text-2xl bg-amber-500 w-full flex">
-        <span className="bg-red-500">
+        <span className="bg-red-500 ml-120">
           My Posts
         </span>
       </div>
