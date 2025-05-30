@@ -12,7 +12,7 @@ const router: Router = Router();
 
 router.post("/story",authMiddleware,storyController)
 router.get("/getStory",authMiddleware,getStoryController)
-router.get("/getMyStory",getMyStoryController)
+router.get("/get-user-story",getMyStoryController)
 
 
 export default router;

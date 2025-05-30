@@ -27,7 +27,6 @@ export default function () {
 
     const { data: session, status } = useSession()
 
-    console.log("Here session is ", session)
 
     const { allStories, setAllStories } = useAllStoryStore();
 

@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect } from "react";
 import FollowStats from "src/components/FollowStats";
+import StoryCard from "src/components/StoryCard";
+import { useAllStoryStore } from "src/zustand/stories/allStories";
 
 
 function toPascalCase(name: string) {
@@ -15,34 +17,43 @@ function toPascalCase(name: string) {
     .join(' ');
 }
 
-
-
-
-
 export default function AccountPage() {
   const { data: session, status } = useSession();
 
-  const
+  const {userStories, setUserStories} = useAllStoryStore();
 
-  const token=session?.user.token
 
-  async function fetchMyStories(){
-    if(!session?.user.id){
+  const token = session?.user.token
+
+  console.log("Token is ",token)
+
+  async function fetchMyStories() {
+    if (!session?.user.id) {
       return;
     }
-    try{
-      const response=await axios.get("http://localhost:8080/api/",{
-        headers:{
-          'Authorization':`Bearer ${token}`
+    try {
+      const response = await axios.get(`http://localhost:8080/api/get-user-story?userId=${Number(session?.user?.id)}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
       })
+      console.log("User id in acoount is ",session.user.id)
+      setUserStories(response.data.data)
+      console.log("User story are",response.data)
+
+    } catch (error) {
+
     }
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (session?.user.token) {
+      fetchMyStories()
+    }
+  }, [session, token])
 
-  })
+
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -83,6 +94,11 @@ export default function AccountPage() {
         <span className="bg-red-500 ml-120">
           My Posts
         </span>
+      </div>
+      <div className="p-4 space-y-4">
+        {userStories.map((story) => (
+          <StoryCard key={story.id} story={story} session={session} />
+        ))}
       </div>
     </div>
   );

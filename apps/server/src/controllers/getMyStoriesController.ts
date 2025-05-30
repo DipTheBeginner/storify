@@ -5,41 +5,43 @@ import { Request, Response } from "express";
 
 
 
-export default async function getMyStoryController(req:Request,res:Response){
+export default async function getMyStoryController(req: Request, res: Response) {
 
-    const {userId}=req.query;
-    if(!userId){
+    const { userId } = req.query;
+    if (!userId) {
         res.status(400).json({
-            error:"User Id is Required"
+            error: "User Id is Required"
         })
         return;
     }
 
-    try{
-        const myStories=await prisma.story.findMany({
-            where:{authorId:Number(userId)},
-           include:{
-            author:{
-                select:{
-                    name:true,
-                    email:true
+    try {
+        const myStories = await prisma.story.findMany({
+            where: { authorId: Number(userId) },
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        email: true
+                    },
                 },
+                tag: true,
             },
-            tag:true,
-           },
 
         });
 
         res.status(200).json({
-            data:myStories
+            data: myStories
         })
-    }catch(error){
-        console.log("Error fetching stories",error);
+        return;
+    } catch (error) {
+        console.log("Error fetching stories", error);
         res.status(500).json({
-            error:"Server Error"
+            error: "Server Error"
         })
+        return;
     }
 
 
-   
+
 }
