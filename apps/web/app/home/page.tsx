@@ -19,6 +19,12 @@ interface Story {
         email: string
     };
     tag: { tagName: string }[];
+    like:{
+        userId:Number;
+    }[];
+    _count?:{
+        likes:Number
+    }
 
 }
 

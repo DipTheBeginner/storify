@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 
 
 
-export default async function getMyStoryController(req: Request, res: Response) {
+export default async function getUserStoryController(req: Request, res: Response) {
 
     const { userId } = req.query;
     if (!userId) {

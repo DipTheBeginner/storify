@@ -45,8 +45,6 @@ export default function AccountPage() {
 
     }
   }
-
-
   useEffect(() => {
     if (session?.user.token) {
       fetchMyStories()
@@ -95,11 +93,7 @@ export default function AccountPage() {
           My Posts
         </span>
       </div>
-      <div className="p-4 space-y-4">
-        {userStories.map((story) => (
-          <StoryCard key={story.id} story={story} session={session} />
-        ))}
-      </div>
+
     </div>
   );
 }

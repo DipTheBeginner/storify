@@ -11,6 +11,7 @@ export type UserType = {
     provider?: string
     oauth_id?: string
     story: StoryType[]
+    likes: LikeType[]
 }
 
 
@@ -25,11 +26,21 @@ export type StoryType = {
     createdAt: Date,
     isUpdated: Boolean,
     updatedAt: Date,
-    tag: TagsType[]
+    tag: TagsType[],
+    likes: LikeType[],
 }
 
 export type TagsType = {
     id: string,
     tagName: string,
-    stories: StoryType
+    stories: StoryType[]
+}
+
+export type LikeType = {
+    id: string,
+    userId: Number,
+    storyId: String,
+    user: UserType,
+    story: StoryType,
+    createdAt: Date,
 }

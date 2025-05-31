@@ -16,6 +16,8 @@ export default async function getStoryController(req: Request, res: Response) {
                         email: true
                     }
                 },
+
+                likes: true,
                 tag: {
                     select: {
                         tagName: true
@@ -23,7 +25,7 @@ export default async function getStoryController(req: Request, res: Response) {
                 }
             },
             orderBy: {
-                createdAt: 'desc' 
+                createdAt: 'desc'
             }
         });
 
@@ -36,11 +38,11 @@ export default async function getStoryController(req: Request, res: Response) {
         return;
     }
     catch (error) {
-        console.log("Error in fetching stories",error);
+        console.log("Error in fetching stories", error);
 
         res.status(500).json({
-            success:false,
-            message:"Something went wrong while fetching stories"
+            success: false,
+            message: "Something went wrong while fetching stories"
         })
 
 

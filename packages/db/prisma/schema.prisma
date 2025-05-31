@@ -14,7 +14,6 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
-  // username  String   @uniqu
   bio       String?
   image     String?
   createdAt DateTime @default(now())
@@ -22,11 +21,11 @@ model User {
   provider  String?
   oauth_id  String?
 
-  // Self-relation for followers/following
   followers Follow[] @relation("followers")
   following Follow[] @relation("following")
 
   story Story[]
+  likes Like[]
 
   // Optional: Add other related data like posts, etc.
   // posts      Post[]
@@ -62,10 +61,22 @@ model Story {
   updateAt  DateTime @updatedAt
   isUpdated Boolean
   tag       tags[]
+  likes     Like[]
 }
 
 model tags {
   id      String  @id @default(cuid())
   tagName String
   stories Story[]
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    Int
+  storyId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  story     Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, storyId])
 }
