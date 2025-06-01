@@ -4,11 +4,8 @@ import {  Response, NextFunction, Request, } from "express";
 
 
 export default function middleware(req: Request , res: Response, next: NextFunction): void {
-    console.log("Req body is ",req.body)
-    console.log("Req header is ",req.headers)
     try {
         const authHeader = req.headers.authorization;
-        console.log("authHeader is ",authHeader);
 
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             res.status(401).json({ msg: "unauthorized: token missing or malformed" });
@@ -16,7 +13,6 @@ export default function middleware(req: Request , res: Response, next: NextFunct
         }
 
         const token = authHeader.split(" ")[1];
-        console.log("Token is ",token)
 
 
         //@ts-ignore
@@ -30,7 +26,6 @@ export default function middleware(req: Request , res: Response, next: NextFunct
             }
 
             req.user = decodedUser as AuthUser;
-            console.log("decode user is ",decodedUser)
             req.user 
             next();
         });

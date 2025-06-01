@@ -13,7 +13,8 @@ export default async function getStoryController(req: Request, res: Response) {
                 author: {
                     select: {
                         name: true,
-                        email: true
+                        email: true,
+                        id:true
                     }
                 },
 

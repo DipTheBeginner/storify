@@ -42,7 +42,7 @@ export default function () {
 
     async function fetchStories() {
         try {
-            const response = await axios.get("http://localhost:8080/api/getStory", {
+            const response = await axios.get("http://localhost:8080/api/get-story", {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 }
@@ -73,15 +73,11 @@ export default function () {
         <>
 
             <HomeNavBar />
-
-
             <div className="p-4 space-y-4">
                 {allStories.map((story) => (
                     <StoryCard key={story.id} story={story} session={session} />
                 ))}
             </div>
-
-
 
         </>
     )
