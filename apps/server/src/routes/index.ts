@@ -16,7 +16,7 @@ router.post("/story",authMiddleware,storyController)
 router.get("/get-story",authMiddleware,getStoryController)
 router.get("/get-user-story",getUserStoryController)
 router.post("/toggle-like",authMiddleware,likeController)
-router.post("/full-story",authMiddleware,getFullStoryController)
+router.get("/full-story/:authorId/:storyId",authMiddleware,getFullStoryController)
 
 
 export default router;

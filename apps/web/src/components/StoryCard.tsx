@@ -27,7 +27,7 @@ export default function ({ story, session }: StoryCardProps) {
 
     const [hasLiked, setHasLiked] = useState<Boolean>(story.likes && story.likes.some(like => like.userId === Number(session?.user.id)))
 
-    const router=useRouter()
+    const router = useRouter()
 
     const { data: sessionData, status } = useSession()
     const token = sessionData?.user.token;
@@ -62,7 +62,12 @@ export default function ({ story, session }: StoryCardProps) {
 
         <div className="flex flex-col py-8 space-y-6 items-center justify-center">
 
-            <div className="flex flex-row w-[40%] items-center justify-between rounded-lg cursor-pointer" onClick={()=>{router.push(`/${story.author.id}/${story.id}`)}}>
+            <div className="flex flex-row w-[40%] items-center justify-between rounded-lg cursor-pointer" onClick={() => {
+                console.log("Story author ID:", story.author.id);
+                console.log("Story ID:", story.id);
+                console.log("Navigating to:", `/${story.author.id}/${story.id}`);
+                router.push(`/${story.author.id}/${story.id}`);
+            }}>
                 {/* content */}
 
                 <div className="flex flex-col space-y-2">

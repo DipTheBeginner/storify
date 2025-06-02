@@ -6,9 +6,14 @@ import { Request, Response } from "express";
 
 
 
-export default async function (req: Request, res: Response) {
+export default async function  getFullStoryController(req: Request, res: Response) {
 
-    const { authorId, storyId } = req.params
+    console.log("Reached in full story")
+
+    const { authorId, storyId } = req.params;
+
+    console.log("authorId and StoryId is ",authorId,storyId);   
+    
 
     if (!authorId || !storyId) {
         res.status(400).json({
@@ -52,9 +57,9 @@ export default async function (req: Request, res: Response) {
         res.status(200).json({
             success: true,
             message: "Story fetched Successfully",
-            data: {
+            data: 
                 fullStories
-            }
+            
         })
 
     } catch (error) {
