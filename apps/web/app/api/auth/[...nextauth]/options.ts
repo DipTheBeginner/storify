@@ -29,6 +29,7 @@ export const authOption: AuthOptions = {
             console.log("Account is==", account);
             try {
                 if (account?.provider === "google") {
+                    const picture = (account as any).profile?.picture || user.image;
 
                     const existingUser = await prisma.user.findFirst({
                         where: {
@@ -51,7 +52,7 @@ export const authOption: AuthOptions = {
                             data: {
                                 email: user.email!,
                                 name: user.name!,
-                                image: user.image,
+                                image: picture,
                                 provider: account.provider,
                                 oauth_id: account.providerAccountId!,
                             },

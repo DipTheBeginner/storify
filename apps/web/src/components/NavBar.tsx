@@ -16,12 +16,7 @@ export default function NavBar() {
     const { data: session, status } = useSession();
     const router = useRouter();
 
-    // useEffect(() => {
-    //     if (session) {
-    //         router.push("/home")
-    //     }
-
-    // }, [session])
+   
 
 
     function handleAccountButtonClick() {

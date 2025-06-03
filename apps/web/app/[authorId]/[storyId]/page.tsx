@@ -4,18 +4,23 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, use, useState } from "react";
+import NavBar from "src/components/NavBar";
+import HomeNavBar from "src/components/navbars/HomeNavBar";
+import SingleStoryComponent from "src/components/story/SingleStoryComponent";
+import { StoryType } from "src/types/types";
 
 interface StoryPageProps {
-    params: {
+    params: Promise<{
         authorId: string,
         storyId: string
-    }
+    }>
 }
 
 export default function StoryPage({ params }: StoryPageProps) {
     // Unwrap the params Promise using React.use()
-    const { authorId, storyId } = (params);
-    const [fullStory, setFullStory] = useState<any>(null);
+    const { authorId, storyId } = use(params);
+    const [fullStory, setFullStory] = useState<StoryType>();
+
 
     console.log("StoryPage params:", { authorId, storyId });
     console.log("Author ID:", authorId, "Story ID:", storyId);
@@ -32,28 +37,25 @@ export default function StoryPage({ params }: StoryPageProps) {
                 }
             })
             console.log("Data in full", response);
-            setFullStory(response.data.data.fullStories)
+            setFullStory(response.data.data)
         } catch (error) {
             console.error("Error fetching story:", error);
         }
     }
+
+    console.log("full story response",fullStory);
 
     useEffect(() => {
         if (session?.user.token) {
             fetchFullStory()
         }
     }, [session, token, authorId, storyId])
+
     return (
-        <div className="p-4 bg-amber-700 min-h-screen">
+        <div className="min-h-screen">
+            <HomeNavBar />
             {fullStory ? (
-                <div className="flex flex-col items-center">
-
-                    <h1 className="text-3xl font-extrabold">{fullStory.title}</h1>
-
-                    <h1>{fullStory.content}</h1>
-
-
-                </div>
+                <SingleStoryComponent story={fullStory} />
             ) : (
                 <p>Loading...</p>
             )}

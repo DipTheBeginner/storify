@@ -6,14 +6,14 @@ import { Request, Response } from "express";
 
 
 
-export default async function  getFullStoryController(req: Request, res: Response) {
+export default async function getFullStoryController(req: Request, res: Response) {
 
     console.log("Reached in full story")
 
     const { authorId, storyId } = req.params;
 
-    console.log("authorId and StoryId is ",authorId,storyId);   
-    
+    console.log("authorId and StoryId is ", authorId, storyId);
+
 
     if (!authorId || !storyId) {
         res.status(400).json({
@@ -35,7 +35,8 @@ export default async function  getFullStoryController(req: Request, res: Respons
                     select: {
                         name: true,
                         email: true,
-                        id: true
+                        id: true,
+                        image:true,
                     }
                 },
                 likes: true,
@@ -57,9 +58,9 @@ export default async function  getFullStoryController(req: Request, res: Respons
         res.status(200).json({
             success: true,
             message: "Story fetched Successfully",
-            data: 
+            data:
                 fullStories
-            
+
         })
 
     } catch (error) {
