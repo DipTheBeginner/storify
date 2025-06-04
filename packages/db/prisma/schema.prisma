@@ -59,7 +59,7 @@ model Story {
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
-  isUpdated Boolean
+  isUpdated Boolean @default(false)
   tag       tags[]
   likes     Like[]
 }
