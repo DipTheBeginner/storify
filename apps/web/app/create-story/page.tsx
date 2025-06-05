@@ -1,34 +1,17 @@
-import axios from "axios";
+// app/create-story/page.tsx
+"use client";
+
 import { useSession } from "next-auth/react";
-import { headers } from "next/headers";
-import { useState } from "react";
+import CreateStoryComponent from "src/components/story/CreateStoryComponent";
 
+export default function CreateStoryPage() {
+  const { data: session } = useSession();
 
+  const token = session?.user?.token;
 
-
-
-
-export default function CreateStoryPage(){
-    const{data:session,status}=useSession()
-
-    const token=session?.user.token;
-
-
-    const[createStory,setCreateStory]=useState("");
-
-    async function sendStory(){
-        const response=axios.post(`http:localhost:8080//api/create-story`,{
-            headers:{
-                Authorization:`Bearer ${token}`
-            }
-
-        })
-    }
-
-
-    return(
-        <div>
-            
-        </div>
-    )
+  return (
+    <div className="p-4">
+      <CreateStoryComponent token={token} />
+    </div>
+  );
 }
