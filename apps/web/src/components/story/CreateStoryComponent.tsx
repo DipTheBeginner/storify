@@ -3,7 +3,6 @@
 import { useState } from "react";
 import axios from "axios";
 import { TagsType } from "src/types/types";
-import StorySubmitNavbar from "../navbars/CreateStoryNavBar";
 
 interface CreateStoryComponentProps {
     token?: string;
@@ -42,7 +41,6 @@ export default function CreateStoryComponent({ token }: CreateStoryComponentProp
 
     return (
         <div className="flex flex-col gap-3 max-w-xl mx-auto">
-            <StorySubmitNavbar />
             <input
                 type="text"
                 placeholder="Title"
@@ -66,6 +64,11 @@ export default function CreateStoryComponent({ token }: CreateStoryComponentProp
                 className=""
             />
 
+            <button onClick={handleSubmit} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Post Story
+            </button>
         </div>
     );
 }
+
+

@@ -37,7 +37,6 @@ export default function ({ story, session }: StoryCardProps) {
         console.log("Sending like request with:", { userId, storyId, token });
 
         try {
-
             const response = await axios.post(`http://localhost:8080/api/toggle-like`,
                 { userId, storyId },
                 {
@@ -59,17 +58,11 @@ export default function ({ story, session }: StoryCardProps) {
     }
 
     return (
-
         <div className="flex flex-col py-8 space-y-6 items-center justify-center">
-
-            <div className="flex flex-row w-[40%] items-center justify-between rounded-lg cursor-pointer" onClick={() => {
-                console.log("Story author ID:", story.author.id);
-                console.log("Story ID:", story.id);
-                console.log("Navigating to:", `/${story.author.id}/${story.id}`);
-                router.push(`/${story.author.id}/${story.id}`);
-            }}>
+            <div className="flex flex-row w-[40%] items-center justify-between rounded-lg cursor-pointer" onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/${story.author.id}/${story.id}`);}}>
                 {/* content */}
-
                 <div className="flex flex-col space-y-2">
                     <div className="flex flex-1 flex-row space-x-2">
                         <Image className="rounded-full" src={session?.user.image!} alt="user profile" height={20} width={20} />
@@ -90,7 +83,9 @@ export default function ({ story, session }: StoryCardProps) {
                             })}
                         </time>
 
-                        <div onClick={() => {
+                        <div onClick={(e) => {
+                            e.stopPropagation(); // Prevent event bubbling
+                            
                             const userId = Number(session?.user.id);
                             const storyId = story?.id;
 
@@ -103,6 +98,7 @@ export default function ({ story, session }: StoryCardProps) {
 
                             likeStory(userId, storyId);
                         }}
+                        className="cursor-pointer"
                         >
                             {
                                 hasLiked ? (
@@ -112,9 +108,6 @@ export default function ({ story, session }: StoryCardProps) {
                                 )
                             }
                         </div>
-
-
-
                     </div>
                 </div>
                 {/* Image */}
