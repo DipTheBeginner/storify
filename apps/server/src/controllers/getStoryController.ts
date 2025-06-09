@@ -14,7 +14,7 @@ export default async function getStoryController(req: Request, res: Response) {
                     select: {
                         name: true,
                         email: true,
-                        id:true
+                        id: true
                     }
                 },
 
@@ -23,12 +23,19 @@ export default async function getStoryController(req: Request, res: Response) {
                     select: {
                         tagName: true
                     }
+                },
+                _count: {
+                    select: {
+                        likes: true
+                    }
                 }
             },
             orderBy: {
                 createdAt: 'desc'
             }
         });
+
+        
 
         res.status(200).json({
             success: true,

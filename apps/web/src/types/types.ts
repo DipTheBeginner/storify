@@ -28,6 +28,9 @@ export type StoryType = {
     updatedAt: Date,
     tag: TagsType[],
     likes: LikeType[],
+    _count?: {
+        likes: number;
+    };
 }
 
 export type TagsType = {
