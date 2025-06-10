@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAllStoryStore } from "src/zustand/stories/allStories";
 
 interface StoryCardProps {
     story: StoryType
@@ -22,6 +23,9 @@ function toPascalCase(name: string) {
 }
 
 export default function ({ story, session }: StoryCardProps) {
+
+    const { allStories, setAllStories } = useAllStoryStore();
+
     console.log("Full story object:", story);
     console.log("Story ID before conversion:", story.id, typeof story.id);
 
@@ -61,12 +65,13 @@ export default function ({ story, session }: StoryCardProps) {
         <div className="flex flex-col py-8 space-y-6 items-center justify-center">
             <div className="flex flex-row w-[40%] items-center justify-between rounded-lg cursor-pointer" onClick={(e) => {
                 e.stopPropagation();
-                router.push(`/${story.author.id}/${story.id}`);}}>
+                router.push(`/${story.author.id}/${story.id}`);
+            }}>
                 {/* content */}
                 <div className="flex flex-col space-y-2">
                     <div className="flex flex-1 flex-row space-x-2">
-                        <Image className="rounded-full" src={session?.user.image!} alt="user profile" height={20} width={20} />
-                        <span className="text-xs">{toPascalCase(session?.user.name!)}</span>
+                        <Image className="rounded-full" src={story.author.image!} alt="user profile" height={20} width={20} />
+                        <span className="text-xs">{toPascalCase(story.author.name)}</span>
                     </div>
                     <h1 className="font-extrabold">
                         {story.title}
@@ -85,7 +90,7 @@ export default function ({ story, session }: StoryCardProps) {
 
                         <div onClick={(e) => {
                             e.stopPropagation(); // Prevent event bubbling
-                            
+
                             const userId = Number(session?.user.id);
                             const storyId = story?.id;
 
@@ -98,7 +103,7 @@ export default function ({ story, session }: StoryCardProps) {
 
                             likeStory(userId, storyId);
                         }}
-                        className="cursor-pointer"
+                            className="cursor-pointer"
                         >
                             {
                                 hasLiked ? (
@@ -107,6 +112,10 @@ export default function ({ story, session }: StoryCardProps) {
                                     <IoIosHeartEmpty />
                                 )
                             }
+
+                            <span>
+                                {story._count?.likes ?? 0}
+                            </span>
                         </div>
                     </div>
                 </div>

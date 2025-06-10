@@ -14,7 +14,8 @@ export default async function getStoryController(req: Request, res: Response) {
                     select: {
                         name: true,
                         email: true,
-                        id: true
+                        id: true,
+                        image:true,
                     }
                 },
 

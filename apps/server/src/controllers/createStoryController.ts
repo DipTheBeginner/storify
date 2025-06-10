@@ -25,6 +25,11 @@ export default async function createStoryController(req: Request, res: Response)
             return;
         }
 
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { image: true }
+        });
+
         const story = await prisma.story.create({
             data: {
                 title,
@@ -42,8 +47,8 @@ export default async function createStoryController(req: Request, res: Response)
         });
 
         res.status(201).json({
-            success:true,
-            message:"Story created Successfully",
+            success: true,
+            message: "Story created Successfully",
             story
         })
 

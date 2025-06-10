@@ -54,12 +54,11 @@ export default function () {
 
     return (
         <>
-            <HomeNavBar />
+            <HomeNavBar />  
             <div className="p-4">
                 {allStories.map((story, index) => (
                     <div key={story.id}>
                         <StoryCard story={story} session={session} />
-                        {/* Add separator line except for the last story */}
                         {index < allStories.length - 1 && (
                             <div className="flex justify-center">
                                 <div className="w-[40%] h-px bg-gray-300"></div>
