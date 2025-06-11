@@ -58,8 +58,8 @@ model Story {
   authorId  Int
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  isUpdated Boolean @default(false)
+  updatedAt DateTime @updatedAt @map("updateAt")
+  isUpdated Boolean  @default(false)
   tag       tags[]
   likes     Like[]
 }

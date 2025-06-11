@@ -6,6 +6,7 @@ import likeController from "../controllers/likeController";
 import getUserStoryController from "../controllers/getMyStoriesController";
 import getFullStoryController from "../controllers/getFullStoryController";
 import createStoryController from "../controllers/createStoryController";
+import editStoryController from "../controllers/editStoryController";
 
 
 
@@ -19,6 +20,7 @@ router.get("/get-user-story",getUserStoryController)
 router.post("/toggle-like",authMiddleware,likeController)
 router.get("/full-story/:authorId/:storyId",authMiddleware,getFullStoryController)
 router.post("/create-story",authMiddleware,createStoryController)
+router.put("/update-story/:storyId",authMiddleware,editStoryController)
 
 
 export default router;

@@ -24,7 +24,7 @@ function toPascalCase(name: string) {
 
 export default function ({ story, session }: StoryCardProps) {
 
-    const { allStories, setAllStories } = useAllStoryStore();
+    const { allStories, setAllStories, updateStoryLikes } = useAllStoryStore();
 
     console.log("Full story object:", story);
     console.log("Story ID before conversion:", story.id, typeof story.id);
@@ -35,7 +35,8 @@ export default function ({ story, session }: StoryCardProps) {
 
     const { data: sessionData, status } = useSession()
     const token = sessionData?.user.token;
-    console.log("Token in story", token)
+    const currentUserId = sessionData?.user?.id;
+    const isOwner = Number(currentUserId) === story.author.id;
 
     async function likeStory(userId: number, storyId: string) {
         console.log("Sending like request with:", { userId, storyId, token });
@@ -51,10 +52,13 @@ export default function ({ story, session }: StoryCardProps) {
             )
             console.log("Response from like is", response)
             if (response.data.data === "LIKED") {
-                setHasLiked(true)
+                setHasLiked(true);
+                updateStoryLikes(story.id, true);
             }
             else if (response.data.data === "DISLIKED") {
-                setHasLiked(false)
+                setHasLiked(false);
+                updateStoryLikes(story.id, false);
+
             }
         } catch (error) {
             console.log("Error in liking story", error)
@@ -103,20 +107,31 @@ export default function ({ story, session }: StoryCardProps) {
 
                             likeStory(userId, storyId);
                         }}
-                            className="cursor-pointer"
-                        >
-                            {
-                                hasLiked ? (
-                                    <FcLike />
-                                ) : (
-                                    <IoIosHeartEmpty />
-                                )
-                            }
+                            className="cursor-pointer hover:opacity-80 transition"
 
-                            <span>
-                                {story._count?.likes ?? 0}
-                            </span>
+                        >
+                            <div className="flex flex-row items-center gap-1">
+                                {hasLiked ? (
+                                    <FcLike className="w-4 h-4" />
+                                ) : (
+                                    <IoIosHeartEmpty className="w-4 h-4" />
+                                )}
+                                <span className="text-xs font-extralight leading-none">
+                                    {story._count?.likes ?? 0}
+                                </span>
+                            </div>
                         </div>
+
+                        {isOwner && (
+                            <button
+                                className="text-blue-500 underline"
+                                onClick={() => {
+                                    // Redirect to edit page or open edit modal
+                                }}
+                            >
+                                ✏️ Edit Story
+                            </button>
+                        )}
                     </div>
                 </div>
                 {/* Image */}
