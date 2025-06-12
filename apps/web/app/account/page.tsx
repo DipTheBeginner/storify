@@ -20,9 +20,6 @@ function toPascalCase(name: string) {
 export default function AccountPage() {
   const { data: session, status } = useSession();
 
-  const {userStories, setUserStories} = useAllStoryStore();
-
-
   const token = session?.user.token
 
   console.log("Token is ",token)
@@ -38,7 +35,7 @@ export default function AccountPage() {
         }
       })
       console.log("User id in acoount is ",session.user.id)
-      setUserStories(response.data.data)
+      setUserStories(response.data.data)  
       console.log("User story are",response.data)
 
     } catch (error) {
