@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import FollowStats from "src/components/FollowStats";
 import StoryCard from "src/components/StoryCard";
 import { useAllStoryStore } from "src/zustand/stories/allStories";
+import { useUserStoryStore } from "src/zustand/stories/userStories";
 
 
 function toPascalCase(name: string) {
@@ -19,6 +20,7 @@ function toPascalCase(name: string) {
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
+  const{userStories,setUserStires}=useUserStoryStore
 
   const token = session?.user.token
 
@@ -43,7 +45,7 @@ export default function AccountPage() {
     }
   }
   useEffect(() => {
-    if (session?.user.token) {
+    if (session?.user.token && session.user.id) {
       fetchMyStories()
     }
   }, [session, token])
