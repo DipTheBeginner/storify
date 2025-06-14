@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Plus } from "lucide-react"
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import UserDropdown from "./UserDropDown";
 
 
 export default function () {
@@ -12,7 +13,7 @@ export default function () {
 
     const { data: session } = useSession();
     console.log("Session is ", session?.user.token);
-    const router=useRouter();
+    const router = useRouter();
 
     return (
         <div className="bg-neutral-100 w-full h-18 flex flex-row items-center justify-between px-8 py-2 border-b-[1px] border-neutral-200">
@@ -29,9 +30,7 @@ export default function () {
                     </span>
                 </Button>
 
-                {
-                    session?.user?.image && (<Image className="rounded-full" src={session?.user?.image as string} alt="user" width={40} height={40} />)
-                }
+                <UserDropdown image={session?.user.image!} userId={session?.user.id!} />
 
             </div>
 

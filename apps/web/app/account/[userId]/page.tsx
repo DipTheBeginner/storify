@@ -20,7 +20,7 @@ function toPascalCase(name: string) {
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
-  const{userStories,setUserStires}=useUserStoryStore
+  const{userStories,setUserStories}=useUserStoryStore
 
   const token = session?.user.token
 

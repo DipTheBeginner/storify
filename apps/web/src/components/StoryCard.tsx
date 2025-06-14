@@ -35,8 +35,6 @@ export default function ({ story, session }: StoryCardProps) {
 
     const { data: sessionData, status } = useSession()
     const token = sessionData?.user.token;
-    const currentUserId = sessionData?.user?.id;
-    const isOwner = Number(currentUserId) === story.author.id;
 
     async function likeStory(userId: number, storyId: string) {
         console.log("Sending like request with:", { userId, storyId, token });
@@ -122,16 +120,7 @@ export default function ({ story, session }: StoryCardProps) {
                             </div>
                         </div>
 
-                        {isOwner && (
-                            <button
-                                className="text-blue-500 underline"
-                                onClick={() => {
-                                    // Redirect to edit page or open edit modal
-                                }}
-                            >
-                                ✏️ Edit Story
-                            </button>
-                        )}
+                        
                     </div>
                 </div>
                 {/* Image */}
