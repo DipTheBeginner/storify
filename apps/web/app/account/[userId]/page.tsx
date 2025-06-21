@@ -29,7 +29,6 @@ export default function AccountPage() {
   useEffect(() => {
     if (!userIdFromURL || !token) return;
 
-    // Fetch stories of the given userId
     async function fetchUserStories() {
       try {
         const response = await axios.get(
