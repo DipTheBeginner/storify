@@ -30,7 +30,7 @@ export default function () {
                     </span>
                 </Button>
 
-                <UserDropdown image={session?.user.image!} userId={session?.user.id!} />
+                <UserDropdown image={session?.user.image!} email={session?.user.email!} />
 
             </div>
 

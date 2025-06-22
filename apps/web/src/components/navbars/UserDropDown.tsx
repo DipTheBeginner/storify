@@ -7,10 +7,10 @@ import { useState, useRef, useEffect } from "react";
 
 interface Props {
   image: string;
-  userId: string | number;
+  email: string;
 }
 
-export default function UserDropdown({ image, userId }: Props) {
+export default function UserDropdown({ image, email }: Props) {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ export default function UserDropdown({ image, userId }: Props) {
           <button
             className="w-full text-left px-4 py-2 hover:bg-neutral-100"
             onClick={() => {
-              router.push(`/account/${userId}`);
+              router.push(`/account/@${email.split('@')[0]}`);
               setShowDropdown(false);
             }}
           >

@@ -2,20 +2,31 @@ import prisma from "@repo/db/client";
 import { Request, Response } from "express";
 
 
-
-
-
 export default async function getUserStoryController(req: Request, res: Response) {
-
-    const { userId } = req.query;
-    if (!userId) {
+    if (!req.user) {
         res.status(400).json({
             error: "User Id is Required"
         })
         return;
     }
+    const { email } = req.params;
+    if (!email || typeof email !== "string") {
+        res.status(400).json({
+            error: "Email is Required and must be a string"
+        });
+        return;
 
+    }
     try {
+
+        const user = await prisma.user.findUnique({
+            where: {
+                email: {
+                    startsWith: email
+                }
+            }
+        })
+
         const myStories = await prisma.story.findMany({
             where: { authorId: Number(userId) },
             include: {
