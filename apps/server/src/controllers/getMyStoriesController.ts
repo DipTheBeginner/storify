@@ -22,7 +22,7 @@ export default async function getUserStoryController(req: Request, res: Response
         const user = await prisma.user.findUnique({
             where: {
                 email: {
-                    startsWith: email
+                    email
                 }
             }
         })
