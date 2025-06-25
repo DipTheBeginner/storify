@@ -1,11 +1,6 @@
 import prisma from "@repo/db/client";
 import { Request, Response } from "express";
 
-
-
-
-
-
 export default async function getFullStoryController(req: Request, res: Response) {
 
     console.log("Reached in full story")
