@@ -1,14 +1,12 @@
-import dynamic from "next/dynamic";
-
-// Import the client component dynamically
-const AccountPageClient = dynamic(() => import("./AccountPageClient"), {
-  ssr: false,
-});
+import AccountPageClient from "./AccountPageClient"; // ✅ no dynamic import
 
 interface Props {
-  params: { email: string };
+  params: {
+    email: string;
+  };
 }
 
 export default function Page({ params }: Props) {
-  return <AccountPageClient email={decodeURIComponent(params.email)} />;
+  const decodedEmail = decodeURIComponent(params.email);
+  return <AccountPageClient email={decodedEmail} />;
 }

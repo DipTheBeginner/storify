@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 import Image from "next/image";
 import HomeNavBar from "src/components/navbars/HomeNavBar";
-import axios from "axios";
 import { StoryType } from "src/types/types";
 
 interface Props {
@@ -46,6 +46,7 @@ export default function AccountPageClient({ email }: Props) {
     <div>
       <HomeNavBar />
       <div className="bg-neutral-200 min-h-screen py-8 px-12">
+        {/* Profile */}
         <div className="flex items-center gap-6 p-20 w-fit ml-40">
           {profileData?.image && (
             <Image
@@ -61,13 +62,7 @@ export default function AccountPageClient({ email }: Props) {
           </span>
         </div>
 
-        <div className="flex flex-row gap-10 w-fit ml-80 -mt-10">
-          <span className="text-lg">Home</span>
-          <span className="text-lg">About</span>
-        </div>
-
-        <div className="h-[1px] bg-gray-400 w-full mt-6" />
-
+        {/* Stories */}
         <div className="mt-10 ml-40">
           <h2 className="text-2xl font-semibold mb-4">My Stories</h2>
           {myStory.length > 0 ? (
