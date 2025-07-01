@@ -1,12 +1,13 @@
 import prisma from "@repo/db/client";
 import { Request, Response } from "express";
 
-export default async function getUserStoryController(req: Request, res: Response) {
+export const getUserStoryController = async (req: Request, res: Response): Promise<void> => {
   if (!req.user) {
     console.log("❌ req.user is missing");
-    return res.status(400).json({
+    res.status(400).json({
       error: "User authentication required",
     });
+    return;
   }
 
   const { email } = req.params;
@@ -14,12 +15,12 @@ export default async function getUserStoryController(req: Request, res: Response
 
   if (!email || typeof email !== "string") {
     console.log("❌ Invalid or missing email");
-    return res.status(400).json({
+    res.status(400).json({
       error: "Email is required and must be a string",
     });
+    return;
   }
-
-
+    
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -27,14 +28,12 @@ export default async function getUserStoryController(req: Request, res: Response
       },
     });
     console.log("👤 User found:", user);
-    
-    
-
-
+                
     if (!user) {
-      return res.status(404).json({
+      res.status(404).json({
         error: "User not found",
       });
+      return;
     }
 
     const myStories = await prisma.story.findMany({
@@ -49,20 +48,21 @@ export default async function getUserStoryController(req: Request, res: Response
         tag: true,
       },
     });
+      
+    console.log("📝 Stories fetched:", myStories.length);
+    console.dir(myStories, { depth: null });
 
-     console.log("📝 Stories fetched:", myStories.length); // ✅ LOG 3: Count of stories
-    console.dir(myStories, { depth: null }); // ✅ LOG 4: Actual stories
-
-    return res.status(200).json({
+    res.status(200).json({
       data: myStories,
     });
-
-
-
+     
   } catch (error) {
     console.error("Error fetching stories:", error);
-    return res.status(500).json({
+    res.status(500).json({
       error: "Server error",
     });
   }
-}
+};
+
+// Also export as default for flexibility
+export default getUserStoryController;

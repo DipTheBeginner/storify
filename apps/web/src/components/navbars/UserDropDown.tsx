@@ -42,7 +42,7 @@ export default function UserDropdown({ image, email }: Props) {
           <button
             className="w-full text-left px-4 py-2 hover:bg-neutral-100"
             onClick={() => {
-              router.push(`/account/@${email.split('@')[0]}`);
+              router.push(`/account/${encodeURIComponent(email)}`);
               setShowDropdown(false);
             }}
           >
