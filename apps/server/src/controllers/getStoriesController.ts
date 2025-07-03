@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 
 
 
-export default async function getStoryController(req: Request, res: Response) {
+export default async function getStoriesController(req: Request, res: Response) {
 
     try {
 

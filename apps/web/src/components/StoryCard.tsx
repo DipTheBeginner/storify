@@ -67,7 +67,7 @@ export default function ({ story, session }: StoryCardProps) {
         <div className="flex flex-col py-8 space-y-6 items-center justify-center">
             <div className="flex flex-row w-[40%] items-center justify-between rounded-lg cursor-pointer" onClick={(e) => {
                 e.stopPropagation();
-                router.push(`/${story.author.id}/${story.id}`);
+                router.push(`/author/${story.author.id}/${story.id}`);
             }}>
                 {/* content */}
                 <div className="flex flex-col space-y-2">
