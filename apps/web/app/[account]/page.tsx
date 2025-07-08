@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { use, useEffect } from "react";
+import HomeNavBar from "src/components/navbars/HomeNavBar";
 
 // app/[account]/page.tsx
 interface PageProps {
@@ -41,5 +42,5 @@ const { account } = params;
      
 
 
-    return <div>{decodedEmail}</div>;
+    return <div><HomeNavBar/></div>;
 }
