@@ -27,9 +27,6 @@ export default async function getUserStoryController(req: Request, res: Response
 
     })
 
-    console.log("Email in account section",email)
-
-    console.log("Story fetched in account section",story);
 
 
 

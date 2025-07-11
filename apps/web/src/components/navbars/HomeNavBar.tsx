@@ -12,7 +12,6 @@ export default function () {
 
 
     const { data: session } = useSession();
-    console.log("Session is ", session?.user.token);
     const router = useRouter();
 
     return (
