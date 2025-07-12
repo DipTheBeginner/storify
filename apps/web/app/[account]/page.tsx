@@ -1,50 +1,67 @@
-import prisma from "@repo/db/client";
-import { Request, Response } from "express";
+"use client";
 
-export default async function getUserStoryController(req: Request, res: Response) {
-  try {
-    let email = req.params.email;
-    
-    // Add better email validation and formatting
-    if (!email) {
-      return res.status(400).json({ error: "Email parameter is required" });
+import axios from "axios";
+import { User2Icon } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import UserAccountLeft from "src/components/account/UserAccountLeft";
+import UserAccountRight from "src/components/account/UserAccountRight";
+import HomeNavBar from "src/components/navbars/HomeNavBar";
+import { UserType } from "src/types/types";
+
+export default function Page() {
+  const { data: session } = useSession();
+  const params = useParams();
+  const account = (params?.account as string) || "";
+  const decodedEmail = decodeURIComponent(account);
+  const [userData, setUserData] = useState<UserType>();
+
+  async function fetchUserAccount() {
+
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/account-data/${decodedEmail.slice(1)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${session?.user.token}`,
+          },
+
+        }
+      );
+      setUserData(response.data.data);
+    } catch (err) {
+      console.error("Failed to fetch account data", err);
     }
-    
-    // Only add @gmail.com if email doesn't contain @ symbol
-    if (!email.includes("@")) {
-      email += "@gmail.com";
-    }
-    
-    console.log("Fetching user data for email:", email);
-    
-    const story = await prisma.user.findUnique({
-      where: {
-        email: email
-      },
-      include: {
-        story: true,
-        followers: true,
-        following: true,
-      }
-    });
-    
-    if (!story) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    
-    console.log("User data found:", story);
-    
-    // Actually return the response
-    return res.status(200).json({
-      success: true,
-      data: story
-    });
-    
-  } catch (error) {
-    console.error("Error in getUserStoryController:", error);
-    return res.status(500).json({ 
-      error: "Internal server error",
-      message: error instanceof Error ? error.message : "Unknown error"
-    });
+
   }
+
+  useEffect(() => {
+    console.log("session in useeffect", session)
+    if (session?.user.token) {
+      fetchUserAccount();
+    }
+  }, [session]);
+
+
+
+  return (
+    <div className="h-screen w-full">
+      <HomeNavBar />
+      <div className="h-full w-full">
+
+        <div className="flex flex-row h-full max-w-7xl mx-auto">
+
+          <div className="grid grid-cols-12 w-full">
+
+            <UserAccountLeft userData={userData}/>
+            <UserAccountRight userData={userData} />
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
 }
