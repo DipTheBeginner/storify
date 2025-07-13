@@ -5,7 +5,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { FcLike } from "react-icons/fc";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAllStoryStore } from "src/zustand/stories/allStories";
 
@@ -35,6 +35,12 @@ export default function ({ story, session }: StoryCardProps) {
 
     const { data: sessionData, status } = useSession()
     const token = sessionData?.user.token;
+
+    function openAccountHandler(e:MouseEvent<HTMLDivElement>){
+        e.stopPropagation();
+        console.log("small div also clicked");
+        router.push(`/@${story.author.email.split("@")[0]}`)
+    }
 
     async function likeStory(userId: number, storyId: string) {
         console.log("Sending like request with:", { userId, storyId, token });
@@ -71,9 +77,9 @@ export default function ({ story, session }: StoryCardProps) {
             }}>
                 {/* content */}
                 <div className="flex flex-col space-y-2">
-                    <div className="flex flex-1 flex-row space-x-2">
+                    <div className="flex flex-1 flex-row space-x-2 w-fit" onClick={openAccountHandler}>
                         <Image className="rounded-full" src={story.author.image!} alt="user profile" height={20} width={20} />
-                        <span className="text-xs">{toPascalCase(story.author.name)}</span>
+                        <span className="text-xs font-semibold">{toPascalCase(story.author.name)}</span>
                     </div>
                     <h1 className="font-extrabold">
                         {story.title}
