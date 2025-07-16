@@ -28,6 +28,7 @@
     "@tailwindcss/postcss": "^4.1.4",
     "@tiptap/react": "^3.0.3",
     "@tiptap/starter-kit": "^3.0.3",
+    "date-fns": "^4.1.0",
     "tailwindcss": "^4.1.4"
   }
 }

@@ -1,8 +1,7 @@
 import Image from "next/image"
 import { Session } from "next-auth";
 import { StoryType } from "src/types/types";
-import { IoIosHeartEmpty } from "react-icons/io";
-import { FcLike } from "react-icons/fc";
+
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { MouseEvent, useState } from "react";
@@ -96,35 +95,7 @@ export default function ({ story, session }: StoryCardProps) {
                             })}
                         </time>
 
-                        <div onClick={(e) => {
-                            e.stopPropagation(); // Prevent event bubbling
-
-                            const userId = Number(session?.user.id);
-                            const storyId = story?.id;
-
-                            console.log("Like clicked", { userId, storyId });
-
-                            if (!userId || !storyId) {
-                                console.warn("Invalid userId or storyId:", { userId, storyId });
-                                return;
-                            }
-
-                            likeStory(userId, storyId);
-                        }}
-                            className="cursor-pointer hover:opacity-80 transition"
-
-                        >
-                            <div className="flex flex-row items-center gap-1">
-                                {hasLiked ? (
-                                    <FcLike className="w-4 h-4" />
-                                ) : (
-                                    <IoIosHeartEmpty className="w-4 h-4" />
-                                )}
-                                <span className="text-xs font-extralight leading-none">
-                                    {story._count?.likes ?? 0}
-                                </span>
-                            </div>
-                        </div>
+                        
 
                         
                     </div>
